@@ -1,6 +1,4 @@
  public class LinearEquation {
-    private String coord1;
-    private String coord2;
     private final int X1;
     private final int X2;
     private final int Y1;
@@ -37,6 +35,9 @@
         int run = X2 - X1;
         slope = (double) rise / run;
         slope = roundedToHundredth(slope);
+        if (rise % run == 0) {
+            return (rise / run) + "";
+        }
         return rise + "/" + run;
     }
 
