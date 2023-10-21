@@ -54,6 +54,9 @@
     }
 
     public String lineInfo() {
+        if (X1 == X2) {
+            return "These points are on a vertical line: x = " + X1;
+        }
         return "The equation of the line between these points is: " + getEquation() +
                 "\nThe slope of this line is: " + slope +
                 "\nThe y-intercept of this line is: " + getYInt() +
