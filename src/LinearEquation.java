@@ -50,6 +50,7 @@
     public String equation() {
         slope();
         yIntercept();
+
         String equation = "";
         if ((double) rise / run == 1) {
             equation += "y = x";
