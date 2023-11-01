@@ -3,10 +3,6 @@
     private final int X2;
     private final int Y1;
     private final int Y2;
-    private double slope;
-    private double yInt;
-    private int rise;
-    private int run;
 
     // Constructor with all points
     public LinearEquation(int x1, int y1, int x2, int y2) {
@@ -14,8 +10,6 @@
         Y1 = y1;
         X2 = x2;
         Y2 = y2;
-        yInt = 0;
-        slope = 0;
     }
 
     // Takes values and rounds them to the hundredth place
@@ -32,55 +26,52 @@
 
     // Calculate and Returns the y-intercept of the coordinates
     public double yIntercept() {
-        yInt = -1 * slope * X1 + Y1;
+        double yInt = -1 * slope() * X1 + Y1;
         yInt = roundedToHundredth(yInt);
         return yInt;
     }
 
-    // Returns the slope of the two points
+    // Calculates and Returns the slope of the two points
     public double slope() {
-        rise = Y2 - Y1;
-        run = X2 - X1;
-        slope = (double) rise / run;
+        int rise = Y2 - Y1;
+        int run = X2 - X1;
+        double slope = (double) rise / run;
         slope = roundedToHundredth(slope);
         return slope;
     }
 
     // Returns the equation of the two coordinates
     public String equation() {
-        slope();
-        yIntercept();
-
-        String equation = "";
-        if ((double) rise / run == 1) {
-            equation += "y = x";
-        }else if ((double) rise / run == -1) {
-            equation += "y = -x";
-        }else if ((rise / run > 1 && rise % run == 0) || (rise / run < 1 && rise % run == 0)) {
-            equation += "y = " + rise / run + "x";
-        }else if (run < 0) {
-            equation += "y = " + rise * -1 + "/" + run * -1;
+        String equation = "y = ";
+        if (slope() == 1) {
+            equation += "x";
+        } else if (slope() == -1) {
+            equation += "-x";
+        } else if ((Y2-Y1) % (X2-X1) == 0) {
+            equation += ((int)slope()) + "x";
+        } else if (X2-X1 < 0) {
+            equation += (Y2-Y1) * -1 + "/" + (X2-X1) * -1 + "x";
         } else {
-            equation += "y = " + rise + "/" + run;
+            equation += (Y2-Y1) + "/" + (X2-X1) + "x";
         }
 
-        if (yInt == 0 && slope == 0) {
+        if (slope() == 0 && yIntercept() == 0) {
             equation = "y = 0";
-        } else if (yInt == 0) {
-            equation += "";
         } else if (Y1 == Y2) {
-            equation = "y = " + yInt;
-        } else if (yInt < 0) {
-            equation += " - " + yInt * -1;
+            equation = "y = " + yIntercept();
+        } else if (yIntercept() == 0) {
+            equation += "";
+        } else if (yIntercept() < 0) {
+            equation += " - " + yIntercept() * -1;
         } else {
-            equation += " + " + yInt;
+            equation += " + " + yIntercept();
         }
         return equation;
     }
 
     // Does the math for the X-value entered by the user and returns the coordinates for the point
-    public String xValue(double x) {
-        double y = slope * x + yInt;
+    public String coordinateForX(double x) {
+        double y = slope() * x + yIntercept();
         y = roundedToHundredth(y);
         return "(" + x + ", " + y + ")";
     }
@@ -92,8 +83,8 @@
         }
         return "The two points are: (" + X1 + ", " + Y1 + ") and (" + X2 + ", " + Y2 + ")" +
                 "\nThe equation of the line between these points is: " + equation() +
-                "\nThe slope of this line is: " + slope +
-                "\nThe y-intercept of this line is: " + yInt +
+                "\nThe slope of this line is: " + slope() +
+                "\nThe y-intercept of this line is: " + yIntercept() +
                 "\nThe distance between these points is " + distance();
     }
 

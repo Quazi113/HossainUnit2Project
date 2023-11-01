@@ -20,7 +20,7 @@ public class LinearEquationLogic {
         System.out.println("Welcome to the linear equation calculator!");
         userCoords();
         equationInfo();
-        coordinateForX();
+        xValue();
         loop();
     }
 
@@ -42,12 +42,12 @@ public class LinearEquationLogic {
     }
 
     // Asks the user for an X value and presents the coordinates for the value
-    private void coordinateForX() {
+    private void xValue() {
         if (x1 != x2) {
             System.out.print("Enter a value for x: ");
             double xCoordinate = scan.nextDouble();
             scan.nextLine();
-            System.out.println("The point on the line is " + coordinates.xValue(xCoordinate));
+            System.out.println("The point on the line is " + coordinates.coordinateForX(xCoordinate));
             System.out.println();
         }
     }
@@ -59,7 +59,7 @@ public class LinearEquationLogic {
         if (answer.equals("y")) {
             userCoords();
             equationInfo();
-            coordinateForX();
+            xValue();
             loop();
         } else {
             System.out.println("Thank you for using the slope calculator, goodbye!");
